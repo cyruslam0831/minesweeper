@@ -66,10 +66,13 @@ def gameStart():
         if len(bomb) > 0:
             main.after(delay, showBomb)
         else:
-            main.after(1000, lambda: messagebox.showwarning("GAME OVER!", "You lose!"))
             for i in range(mapHeight):
                 for j in range(mapWidth):
                     gameGrid[i][j].revealGrid()
+            response = messagebox.askyesno("GAME OVER!", "You lose! Play again?")
+            main.destroy()
+            if response == 1:
+                gameSetting()
             
         
     def gameLost():
