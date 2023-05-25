@@ -42,7 +42,7 @@ def gameStart():
             selected = int(random() * (mapWidth * mapHeight - i - 9))
             #print(i, safe[selected] // mapWidth, safe[selected] % mapWidth)
             gameGrid[safe[selected] // mapWidth][safe[selected] % mapWidth].isBomb = True
-            gameGrid[safe[selected] // mapWidth][safe[selected] % mapWidth].interact.config(bg="red")
+            #gameGrid[safe[selected] // mapWidth][safe[selected] % mapWidth].interact.config(bg="red")
             bomb.append(safe[selected])
             safe.remove(safe[selected])
             
@@ -87,7 +87,7 @@ def gameStart():
                             gameGrid[i][j].nearbyBomb += 1
                           
                 #print(gameGrid[i][j].nearbyBomb)
-                gameGrid[i][j].interact.config(text=gameGrid[i][j].nearbyBomb)
+                #gameGrid[i][j].interact.config(text=gameGrid[i][j].nearbyBomb)
                                     
 
     def drawMap():
