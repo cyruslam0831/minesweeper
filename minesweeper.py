@@ -4,7 +4,7 @@ from tkinter import messagebox
 
 
 def gameStart():
-    global gameStarted, numBomb, gameOver, gameVictory, bombRemaining, realBombRemaining
+    global gameStarted, numBomb, gameOver, gameVictory, bombRemaining, realBombRemaining, numRevealed
     setting.destroy()
     main = Tk()
     main.title("Minesweeper Game")
@@ -16,10 +16,11 @@ def gameStart():
     gameVictory = False
     realBombRemaining = numBomb
     bombRemaining = numBomb
+    numRevealed = 0
     
     def checkVictory():
-        global gameOver, gameVictory
-        if bombRemaining == realBombRemaining == 0 and not gameOver:
+        global gameOver, gameVictory, mapWidth, mapHeight
+        if ((numRevealed + numBomb == mapHeight * mapWidth) or (bombRemaining == realBombRemaining == 0)) and not gameOver:
             gameOver = True
             gameVictory = True
             gameWon()
@@ -41,7 +42,7 @@ def gameStart():
             selected = int(random() * (mapWidth * mapHeight - i - 9))
             #print(i, safe[selected] // mapWidth, safe[selected] % mapWidth)
             gameGrid[safe[selected] // mapWidth][safe[selected] % mapWidth].isBomb = True
-            #gameGrid[safe[selected] // mapWidth][safe[selected] % mapWidth].interact.config(bg="red")
+            gameGrid[safe[selected] // mapWidth][safe[selected] % mapWidth].interact.config(bg="red")
             bomb.append(safe[selected])
             safe.remove(safe[selected])
             
@@ -86,7 +87,7 @@ def gameStart():
                             gameGrid[i][j].nearbyBomb += 1
                           
                 #print(gameGrid[i][j].nearbyBomb)
-                #gameGrid[i][j].interact.config(text=gameGrid[i][j].nearbyBomb)
+                gameGrid[i][j].interact.config(text=gameGrid[i][j].nearbyBomb)
                                     
 
     def drawMap():
@@ -172,9 +173,10 @@ def gameStart():
             self.interact.config(fg=color[self.nearbyBomb])
         
         def revealGrid(self):
-            global gameOver, gameVictory, bomb
+            global gameOver, gameVictory, bomb, numRevealed
             if (gameOver and not self.isRevealed) or (not self.isFlagged and not self.isRevealed):
                 self.isRevealed = True
+                numRevealed += 1
                 if self.isBomb and not self.isFlagged and not gameOver:
                     self.interact.config(text="💥", fg="black", bg="red")
                     #print(bomb)
