@@ -1,5 +1,10 @@
 # minesweeper
 /!\ Works best with 1920x1080 resolution
+
+1. Download the "minesweeper.py" file
+2. Make sure that Python is installed
+3. Run the file
+
 Tutorial:
 [Game Setting]
   1. Choose the map width, map height, and bomb density using the sliders
