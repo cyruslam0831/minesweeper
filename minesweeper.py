@@ -153,8 +153,8 @@ def gameStart():
             return temp
             
         def flag(self):
-            global bombRemaining, lbl6, realBombRemaining, mapWidth
-            if not self.isRevealed and gameStarted: 
+            global bombRemaining, lbl6, realBombRemaining, mapWidth, gameVictory
+            if (gameVictory or not self.isRevealed) and gameStarted: 
                 self.isFlagged = not self.isFlagged
                 if self.isFlagged:
                     self.interact.config(text="🚩",fg="red")
@@ -186,12 +186,14 @@ def gameStart():
                     #print(self.row * mapWidth + self.column)
                     bomb.remove(self.row * mapWidth + self.column)
                     gameLost()
+                elif gameVictory and not self.isFlagged and self.isBomb:
+                    self.flag()
                 elif not self.isFlagged and self.nearbyBomb == 0 and (gameVictory or not gameOver):
                     self.interact.config(bg="#dddddd")
                     self.revealNear()
                 elif gameOver and self.isFlagged and not self.isBomb:
                     self.interact.config(fg="#888888")
-                elif not self.isFlagged and (gameVictory or not gameOver):
+                elif not self.isFlagged and (gameVictory or not gameOver) and not self.isBomb:
                     self.interact.config(text=self.nearbyBomb, bg="#dddddd")
                     self.bombColor()
                 checkVictory()
