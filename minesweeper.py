@@ -31,11 +31,11 @@ def gameStart():
         bomb = []
         
         # Exclude first grid and those nearby
-        for i in range(3):
-            for j in range(3):
-                if 0 <= pressedx + i and pressedx + i <= mapHeight and 0 <= pressedy + j and pressedx + j <= mapWidth:
-                    # print((pressedx - 1 + i), (pressedy - 1 + j))
-                    safe.remove((pressedx - 1 + i) * mapWidth + (pressedy - 1 + j))
+        for i in range(-1, 2):
+            for j in range(-1, 2):
+                if 0 <= pressedx + i and pressedx + i <= mapHeight - 1 and 0 <= pressedy + j and pressedy + j <= mapWidth - 1:
+                    print((pressedx + i), (pressedy + j))
+                    safe.remove((pressedx + i) * mapWidth + (pressedy + j))
                     
         # Generate bombs randomly from the safe list, removing them from the safe list while doing so
         for i in range(numBomb):
