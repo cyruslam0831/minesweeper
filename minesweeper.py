@@ -31,15 +31,20 @@ def gameStart():
         bomb = []
         
         # Exclude first grid and those nearby
+        numRemoved = 1
+        safe.remove(pressedx * mapWidth + pressedy)
         for i in range(-1, 2):
             for j in range(-1, 2):
-                if 0 <= pressedx + i and pressedx + i <= mapHeight - 1 and 0 <= pressedy + j and pressedy + j <= mapWidth - 1:
-                    print((pressedx + i), (pressedy + j))
-                    safe.remove((pressedx + i) * mapWidth + (pressedy + j))
+                if 0 <= pressedx + i and pressedx + i <= mapHeight - 1 and 0 <= pressedy + j and pressedy + j <= mapWidth - 1 and (i != 0 or j != 0):
+                    #print((pressedx + i), (pressedy + j))
+                    if len(safe) > numBomb:
+                        #print((pressedx + i), (pressedy + j),len(safe),  mapHeight * mapWidth - numBomb)
+                        safe.remove((pressedx + i) * mapWidth + (pressedy + j))
+                        numRemoved += 1
                     
         # Generate bombs randomly from the safe list, removing them from the safe list while doing so
         for i in range(numBomb):
-            selected = int(random() * (mapWidth * mapHeight - i - 9))
+            selected = int(random() * (mapWidth * mapHeight - i - numRemoved))
             #print(i, safe[selected] // mapWidth, safe[selected] % mapWidth)
             gameGrid[safe[selected] // mapWidth][safe[selected] % mapWidth].isBomb = True
             #gameGrid[safe[selected] // mapWidth][safe[selected] % mapWidth].interact.config(bg="red")
