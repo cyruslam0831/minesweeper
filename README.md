@@ -1,5 +1,5 @@
 # minesweeper
-/!\ Works best with 1920x1080 resolution
+/!\ Works best with 1920x1080 resolution (Better performance on Windows)
 
 1. Download the "minesweeper.py" file
 2. Make sure that Python is installed
