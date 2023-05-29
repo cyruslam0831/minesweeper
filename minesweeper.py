@@ -97,7 +97,6 @@ def gameStart():
                 #print(gameGrid[i][j].nearbyBomb)
                 #gameGrid[i][j].interact.config(text=gameGrid[i][j].nearbyBomb)
                                     
-
     def drawMap():
         global mapHeight, mapWidth, numBomb, lbl6
         for i in range(mapHeight):
@@ -194,12 +193,12 @@ def gameStart():
                 elif gameVictory and not self.isFlagged and self.isBomb:
                     self.flag()
                 elif not self.isFlagged and self.nearbyBomb == 0 and (gameVictory or not gameOver):
-                    self.interact.config(bg="#dddddd")
+                    self.interact.config(bg="#bbbbbb")
                     self.revealNear()
                 elif gameOver and self.isFlagged and not self.isBomb:
                     self.interact.config(fg="#888888")
                 elif not self.isFlagged and (gameVictory or not gameOver) and not self.isBomb:
-                    self.interact.config(text=self.nearbyBomb, bg="#dddddd")
+                    self.interact.config(text=self.nearbyBomb, bg="#bbbbbb")
                     self.bombColor()
                 checkVictory()
         
@@ -217,7 +216,7 @@ def gameStart():
     
 # Game Setting Window
 def gameSetting():
-    global mapHeightSlider, mapWidthSlider, bombDensitySlider, setting, btn2
+    global mapHeightSlider, mapWidthSlider, bombDensitySlider, setting, btn2, mapWidth
     setting = Tk()
     setting.title("Game Settings")
     setting.resizable(FALSE, FALSE)
@@ -235,13 +234,16 @@ def gameSetting():
     mapWidthSlider.grid(row=1, column=1, columnspan=3, sticky=E+W, padx=10)
     mapHeightSlider.grid(row=2, column=1, columnspan=3, sticky=E+W, padx=10)
     bombDensitySlider.grid(row=3, column=1, columnspan=3, sticky=E+W, padx=10)
+    mapWidthSlider.set(mapWidth)
+    mapHeightSlider.set(mapHeight)
+    bombDensitySlider.set(bombDensity)
     btn1 = Button(setting, text="Confirm Map Settings", command=mapSize) # Confirm Map Settings button
     btn1.grid(row=4, column=1, columnspan=2, sticky=E+W, pady=20)
     btn2 = Button(setting, text="< Start Game! >", command=lambda: gameStart()) # Game Start button, destroys the setting screen
     setting.mainloop()
 
 def mapSize(): # Confirm the map size, and determine the number of bombs
-    global mapHeight, mapWidth, numBomb
+    global mapHeight, mapWidth, numBomb, bombDensity
     mapHeight = mapHeightSlider.get()
     mapWidth = mapWidthSlider.get()
     bombDensity = bombDensitySlider.get()
@@ -252,4 +254,7 @@ def mapSize(): # Confirm the map size, and determine the number of bombs
     lbl5.grid(row=5, column=1, columnspan=3, sticky=E+W, padx=10, pady=10)
     btn2.grid(row=6, column=1, columnspan=2, sticky=E+W, pady=20)
 
+mapWidth = 8
+mapHeight = 8
+bombDensity = 15
 gameSetting()
