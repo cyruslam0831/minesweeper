@@ -2,8 +2,6 @@ from tkinter import *
 from random import *
 from tkinter import messagebox
 
-print("Version 1.0")
-
 def gameStart():
     global gameStarted, numBomb, gameOver, gameVictory, bombRemaining, realBombRemaining, numRevealed
     setting.destroy()
